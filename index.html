@@ -76,6 +76,7 @@
         <input id="y" type="number" value="0.5"  min="0" max="1" step="0.1">
         <input type="button" value="path mode" onclick="onClickPathmode()">
     </div>
+    <input type="button" value="tact file play (bow shot)" onclick="onClickTactFile()">
     <script>
         var player;
         function onClickDotmode() {
@@ -129,6 +130,10 @@
             return parseFloat(document.getElementById("y").value);
         }
 
+        function onClickTactFile(){
+            player.submitRegistered("BowShoot");
+        }
+
         window.onload = function(e) {
             var a = 1;
             player = new hapticPlayer();
@@ -138,6 +143,7 @@
 
             // tact file can be exported from bhaptics designer
             var current_folder = document.URL.substr(0,document.URL.lastIndexOf('/'));
+            // not current_folder only used to bypass local dev issues. You probably dont need this.
             player.register("BowShoot", current_folder + "/BowShoot.tact");
             player.submitRegistered("BowShoot")
         };

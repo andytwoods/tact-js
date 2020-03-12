@@ -76,5 +76,8 @@
     "dist-node": "tact.js",
     "dist-web": "tact.web.js",
     "bundle-node": true
+  },
+  "dependencies": {
+    "babel-register": "^6.26.0"
   }
 }
