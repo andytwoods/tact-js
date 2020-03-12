@@ -130,11 +130,16 @@
         }
 
         window.onload = function(e) {
+            var a = 1;
             player = new hapticPlayer();
             player.on('change', function(msg) {
                 console.log('changed from player', msg);
-            })
+            });
 
+            // tact file can be exported from bhaptics designer
+            var current_folder = document.URL.substr(0,document.URL.lastIndexOf('/'));
+            player.register("BowShoot", current_folder + "/BowShoot.tact");
+            player.submitRegistered("BowShoot")
         };
     </script>
 </body>
