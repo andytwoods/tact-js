@@ -70,28 +70,24 @@ export default class hapticPlayer extends EventEmitter {
     }
 
     register(key, fileDirectory) {
-        fetch(fileDirectory, {
-            method: "POST", headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then((data) => {
-                data.text().then(info => {
-                    const json_data = JSON.parse(info);
-                    const project = json_data["project"];
-                    const request = {
-                        "Register": [{
-                            "Key": key,
-                            "Project": {
-                                "Tracks": project["tracks"],
-                                "Layout": project["layout"]
-                            }
-                        }]
-                    };
-                    const json_str = JSON.stringify(request);
-                    this.socket.send(json_str);
-                })
-            })
+        var loader = new FileLoader();
+        loader.load(fileDirectory, function (text) {
+
+            const json_data = JSON.parse(text);
+            const project = json_data["project"];
+            const request = {
+                "Register": [{
+                    "Key": key,
+                    "Project": {
+                        "Tracks": project["tracks"],
+                        "Layout": project["layout"]
+                    }
+                }]
+            };
+            const json_str = JSON.stringify(request);
+            this.socket.send(json_str);
+
+        },);
     }
 
     submitRegistered(key) {
